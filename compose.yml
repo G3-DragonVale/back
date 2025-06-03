@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: josianne
+      POSTGRES_PASSWORD: josianne
+    volumes:
+      - g3data:/var/lib/postgresql/data
+    ports:
+      - '5433:5432'
+
+volumes:
+  g3data:
+
