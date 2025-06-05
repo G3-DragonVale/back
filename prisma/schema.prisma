@@ -13,20 +13,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       Int          @id @default(autoincrement())
-  nickname String @unique
-  mdp      String
-  dragons  UserDragon[]
-  logs     Logs[]
-}
-
 enum Rarete {
   COMMUN
   RARE
   EPIQUE
   LEGENDAIRE
   MYTHIQUE
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id       Int          @id @default(autoincrement())
+  nickname String       @unique
+  mdp      String
+  role     Role         @default(USER)
+  dragons  UserDragon[]
+  logs     Logs[]
 }
 
 model Dragon {
