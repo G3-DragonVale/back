@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { LogsService } from './logs.service';
 import { CreateLogDto } from './dto/create-log.dto';
 import { UpdateLogDto } from './dto/update-log.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('logs')
 export class LogsController {
@@ -12,6 +13,7 @@ export class LogsController {
     return this.logsService.create(createLogDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.logsService.findAll();

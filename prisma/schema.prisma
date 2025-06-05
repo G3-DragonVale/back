@@ -14,12 +14,11 @@ datasource db {
 }
 
 model User {
-  id      Int          @id @default(autoincrement())
-  nom     String
-  prenom  String
-  mdp     String
-  dragons UserDragon[]
-  logs    Logs[]
+  id       Int          @id @default(autoincrement())
+  nickname String @unique
+  mdp      String
+  dragons  UserDragon[]
+  logs     Logs[]
 }
 
 enum Rarete {

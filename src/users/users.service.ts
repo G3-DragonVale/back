@@ -29,7 +29,7 @@ export class UsersService {
     return this.prisma.user.delete({ where: { id } });
   }
 
-  findByName(name) {
-    return this.prisma.user.findMany({ where: { nom: name } });
+  findByNickname(nickname) {
+    return this.prisma.user.findMany({ where: { nickname : nickname } });
   }
 }
