@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -23,10 +22,18 @@ model User {
   logs    Logs[]
 }
 
+enum Rarete {
+  COMMUN
+  RARE
+  EPIQUE
+  LEGENDAIRE
+  MYTHIQUE
+}
+
 model Dragon {
   id     Int          @id @default(autoincrement())
   nom    String       @unique
-  rarete String
+  rarete Rarete       @default(COMMUN)
   owners UserDragon[]
 }
 
