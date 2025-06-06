@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Logs" ADD COLUMN     "body" TEXT,
+ADD COLUMN     "ip" TEXT,
+ALTER COLUMN "method" DROP NOT NULL,
+ALTER COLUMN "route" DROP NOT NULL;

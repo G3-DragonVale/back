@@ -11,9 +11,9 @@ export class LogsService {
    }
  
    findAll() {
-     return this.prisma.logs.findMany();
+     return this.prisma.logs.findMany({orderBy: { date: 'desc' }});
    }
- 
+
    findOne(id: number) {
      return this.prisma.logs.findUnique({ where: { id } });
    }

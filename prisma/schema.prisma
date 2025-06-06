@@ -53,9 +53,11 @@ model UserDragon {
 
 model Logs {
   id     Int      @id @default(autoincrement())
-  userId Int
-  method String
-  route  String
+  userId Int?
+  method String?
+  route  String?
+  ip     String?
+  body   String?
   date   DateTime @default(now())
-  user   User     @relation(fields: [userId], references: [id])
+  user   User?    @relation(fields: [userId], references: [id])
 }
