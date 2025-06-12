@@ -4,11 +4,19 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.enableCors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  });
+
+
   const config = new DocumentBuilder()
     .setTitle('G3 DragonVale API')
     .setDescription('The DragonVale API description')
     .setVersion('0.1')
     .build();
+    
 
   const document = SwaggerModule.createDocument(app, config);
 
