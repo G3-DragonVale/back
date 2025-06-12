@@ -16,7 +16,7 @@ export class LogsController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('USER')
+  @Roles('ADMIN')
   @Get()
   findAll() {
     return this.logsService.findAll();
