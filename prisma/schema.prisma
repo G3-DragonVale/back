@@ -39,6 +39,7 @@ model Dragon {
   id     Int          @id @default(autoincrement())
   nom    String       @unique
   rarete Rarete       @default(COMMUN)
+  lien   String?
   owners UserDragon[]
 }
 
