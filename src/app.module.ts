@@ -1,4 +1,5 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
@@ -8,11 +9,27 @@ import { LogsModule } from './logs/logs.module';
 import { AuthModule } from './auth/auth.module';
 import { LogMiddleware } from './midlleware/log.middleware';
 import { JwtModule } from '@nestjs/jwt';
+import { EncryptionModule } from './encryption/encryption.module';
+import { EncryptionInterceptor } from './encryption/encryption.interceptor';
 
 @Module({
-  imports: [PrismaModule, UsersModule, DragonsModule, LogsModule, AuthModule, JwtModule],
+  imports: [
+    PrismaModule, 
+    UsersModule, 
+    DragonsModule, 
+    LogsModule, 
+    AuthModule, 
+    JwtModule, 
+    EncryptionModule
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: EncryptionInterceptor,
+    }
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
