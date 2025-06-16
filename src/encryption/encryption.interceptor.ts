@@ -18,7 +18,8 @@ export class EncryptionInterceptor implements NestInterceptor {
         // Structure pour le résultat chiffré
         return {
           encrypted: true,
-          data: this.encryptionService.encrypt(data)
+          // data: this.encryptionService.encrypt(data)
+          data: data
         };
       }),
     );
