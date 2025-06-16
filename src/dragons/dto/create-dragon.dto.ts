@@ -14,4 +14,7 @@ export class CreateDragonDto {
 
     @ApiProperty({ enum: Rarete, default: Rarete.COMMUN })
     rarete?: Rarete = Rarete.COMMUN;
+
+    @ApiProperty()
+    lien?: string;
 }
