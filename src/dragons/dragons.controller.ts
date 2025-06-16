@@ -21,6 +21,10 @@ export class DragonsController {
   findOne(@Param('id') id: string) {
     return this.dragonsService.findOne(+id);
   }
+  @Get(':userId')
+  findByUserId(@Param('userId') userId: string) {
+    return this.dragonsService.findByUserId(+userId);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDragonDto: UpdateDragonDto) {
