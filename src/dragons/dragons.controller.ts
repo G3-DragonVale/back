@@ -21,7 +21,7 @@ export class DragonsController {
   findOne(@Param('id') id: string) {
     return this.dragonsService.findOne(+id);
   }
-  @Get(':userId')
+  @Get('ByUserId/:userId')
   findByUserId(@Param('userId') userId: string) {
     return this.dragonsService.findByUserId(+userId);
   }

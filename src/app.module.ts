@@ -11,6 +11,7 @@ import { LogMiddleware } from './midlleware/log.middleware';
 import { JwtModule } from '@nestjs/jwt';
 import { EncryptionModule } from './encryption/encryption.module';
 import { EncryptionInterceptor } from './encryption/encryption.interceptor';
+import { EncryptionService } from './encryption/encryption.service';
 
 @Module({
   imports: [
@@ -23,11 +24,14 @@ import { EncryptionInterceptor } from './encryption/encryption.interceptor';
     EncryptionModule
   ],
   controllers: [AppController],
-  providers: [
+   providers: [
     AppService,
     {
       provide: APP_INTERCEPTOR,
-      useClass: EncryptionInterceptor,
+      useFactory: (encryptionService: EncryptionService) => {
+        return new EncryptionInterceptor(encryptionService);
+      },
+      inject: [EncryptionService],
     }
   ],
 })

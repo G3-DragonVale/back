@@ -5,20 +5,25 @@ import { EncryptionService } from './encryption.service';
 
 @Injectable()
 export class EncryptionInterceptor implements NestInterceptor {
-  constructor(private encryptionService: EncryptionService) {}
+  constructor(private encryptionService: EncryptionService) { }
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const request = context.switchToHttp().getRequest();
+    const sessionId = request.headers['x-session-id'] as string;
+    const url = request.url;
+
+
     return next.handle().pipe(
       map(data => {
-        // On ne chiffre pas si la réponse est undefined ou null
-        if (data === undefined || data === null) {
+        if (url.includes('/handshake') || data === undefined || data === null) {
           return data;
         }
-        
-        // Structure pour le résultat chiffré
+
+        const encryptedData = this.encryptionService.encrypt(data, sessionId);
+
         return {
           encrypted: true,
-          data: this.encryptionService.encrypt(data)
+          data: encryptedData,
         };
       }),
     );
