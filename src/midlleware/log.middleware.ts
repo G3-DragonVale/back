@@ -14,7 +14,7 @@ export class LogMiddleware implements NestMiddleware {
         const method = req.method;
         const route = req.originalUrl;
         const ip = req.ip;
-        const excludedRoutes = ['/logs'];
+        const excludedRoutes = ['/logs', '/handshake'];
         const sanitizedRoutes = ['/auth/login', '/auth/register'];
 
         if (excludedRoutes.includes(req.path)) return next();
