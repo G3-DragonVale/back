@@ -28,15 +28,6 @@ export class EncryptionController {
 
     await this.encryptionService.setAESKey(sessionId, aesKey);
 
-    console.log(
-      'Backend AES key:',
-      aesKey.toString('base64'),
-      'SessionId:',
-      sessionId,
-      'Length:',
-      aesKey.length,
-    );
-
     return {
       aesKey: encryptedAES.toString('base64'),
     };

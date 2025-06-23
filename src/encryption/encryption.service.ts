@@ -21,7 +21,6 @@ export class EncryptionService {
   }
 
   encryptWithAES(data: string, aesKey: Buffer): string {
-    console.log(data);
     const iv = crypto.randomBytes(16);
     const cipher = crypto.createCipheriv('aes-256-cbc', aesKey, iv);
     let encrypted = cipher.update(data, 'utf8', 'base64');
