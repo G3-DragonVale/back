@@ -5,7 +5,7 @@ import { HandCheckDTO } from './dto/handshake.dto';
 
 @Controller()
 export class EncryptionController {
-  constructor(private readonly encryptionService: EncryptionService) {}
+  constructor(private readonly encryptionService: EncryptionService) { }
 
   @Post('handshake')
   async handshake(@Body() body: HandCheckDTO) {
@@ -21,12 +21,12 @@ export class EncryptionController {
       {
         key: pubKey,
         padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
-        oaepHash: "sha256",
+        oaepHash: 'sha256',
       },
-      aesKey
+      aesKey,
     );
 
-    this.encryptionService.setAESKey(sessionId, aesKey);
+    await this.encryptionService.setAESKey(sessionId, aesKey);
 
     return {
       aesKey: encryptedAES.toString('base64'),
