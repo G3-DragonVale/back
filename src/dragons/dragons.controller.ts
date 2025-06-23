@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
 import { DragonsService } from './dragons.service';
 import { CreateDragonDto } from './dto/create-dragon.dto';
 import { UpdateDragonDto } from './dto/update-dragon.dto';
+import { UserDragonDto } from './dto/user-dragon.dto';
 
 @Controller('dragons')
 export class DragonsController {
-  constructor(private readonly dragonsService: DragonsService) {}
+  constructor(private readonly dragonsService: DragonsService) { }
 
   @Post()
   create(@Body() createDragonDto: CreateDragonDto) {
@@ -31,8 +41,19 @@ export class DragonsController {
     return this.dragonsService.update(+id, updateDragonDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.dragonsService.remove(+id);
+  @Post('userDragon')
+  addUserDragon(@Body() addUserDragonDto: UserDragonDto) {
+    return this.dragonsService.addUserDragon(addUserDragonDto);
+  }
+
+  @Delete('userDragon')
+  removeUserDragon(
+    @Query('userId') userId: string,
+    @Query('dragonId') dragonId: string,
+  ) {
+    return this.dragonsService.removeUserDragon({
+      userId: +userId,
+      dragonId: +dragonId,
+    });
   }
 }
