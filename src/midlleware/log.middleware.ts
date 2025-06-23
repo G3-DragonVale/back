@@ -7,15 +7,15 @@ import { JwtService } from '@nestjs/jwt';
 export class LogMiddleware implements NestMiddleware {
     constructor(
         private readonly prisma: PrismaService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
     ) { }
 
     async use(req: Request, res: Response, next: NextFunction) {
         const method = req.method;
         const route = req.originalUrl;
         const ip = req.ip;
-        const excludedRoutes = ['/logs', '/handshake'];
-        const sanitizedRoutes = ['/auth/login', '/auth/register'];
+        const excludedRoutes = ['/api/logs', '/api/handshake'];
+        const sanitizedRoutes = ['/api/auth/login', '/api/auth/register'];
 
         if (excludedRoutes.includes(req.path)) return next();
 
@@ -33,7 +33,9 @@ export class LogMiddleware implements NestMiddleware {
         if (authHeader?.startsWith('Bearer ')) {
             const token = authHeader.split(' ')[1];
             try {
-                decoded = this.jwtService.verify(token, { secret: process.env.JWT_SECRET || 'supersecret' });
+                decoded = this.jwtService.verify(token, {
+                    secret: process.env.JWT_SECRET || 'supersecret',
+                });
                 userId = decoded?.sub || undefined; // Récupérer l'ID de l'utilisateur à partir du token
             } catch (e) {
                 decoded = e.message; // Si le token est invalide, utiliser un message par défaut
